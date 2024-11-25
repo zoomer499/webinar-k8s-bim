@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: rolling-deployment
 spec:
-  replicas: 3
+  replicas: 5
   selector:
     matchLabels:
       app: my-app
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: nginx:1.23
+        image: nginx:1.22
         ports:
         - containerPort: 80
   strategy:

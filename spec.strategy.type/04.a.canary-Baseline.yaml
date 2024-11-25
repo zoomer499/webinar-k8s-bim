@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: canary-deployment-baseline
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: my-app
@@ -23,12 +23,31 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: canary-svc
+  name: baseline-svc
 spec:
   selector:
     app: my-app
+    version: baseline
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
   type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: base-ingress
+  namespace: webinar
+spec:
+  rules:
+    - host: webinar.dev.bimeister.io
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: baseline-svc
+              port:
+                number: 80

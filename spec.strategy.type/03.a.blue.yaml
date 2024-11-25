@@ -27,6 +27,21 @@ metadata:
 spec:
   selector:
     app: my-app
+    version: green # Pointing to the "blue" version initially
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blue-green-svc
+spec:
+  selector:
+    app: my-app
     version: blue # Pointing to the "blue" version initially
   ports:
     - protocol: TCP
