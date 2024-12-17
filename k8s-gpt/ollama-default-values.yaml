@@ -79,16 +79,19 @@ ollama:
     # pull:
     #  - llama2
     #  - mistral
-    pull: []
+    pull:
+      - llama3
 
     # -- List of models to load in memory at container startup
     # run:
     #  - llama2
     #  - mistral
-    run: []
+    run:
+      - llama3
+      - 
 
   # -- Add insecure flag for pulling at container startup
-  insecure: true
+  insecure: false
 
   # -- Override ollama-data volume mount path, default: "/root/.ollama"
   mountPath: ""
@@ -152,7 +155,7 @@ service:
 # Configure the ingress resource that allows you to access the
 ingress:
   # -- Enable ingress controller resource
-  enabled: false
+  enabled: true
 
   # -- IngressClass that will be used to implement the Ingress (Kubernetes 1.18+)
   className: ""
@@ -165,7 +168,7 @@ ingress:
 
   # The list of hostnames to be covered with this ingress record.
   hosts:
-    - host: ollama.local
+    - host: ollama.dev.bimeister.io
       paths:
         - path: /
           pathType: Prefix
